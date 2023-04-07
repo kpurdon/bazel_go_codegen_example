@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("//hellogen:hellogen.bzl", "hellogen")
+
+hellogen(
+    name = "hellogen",
+    config = "config.json",
+)
+
+go_library(
+    name = "hello",
+    srcs = [":hellogen"],
+    importpath = "github.com/kpurdon/bazel_go_codegen_example/hello",
+    visibility = ["//visibility:private"],
+)
+
+go_library(
+    name = "greeter_lib",
+    srcs = ["greeter.go"],
+    importpath = "github.com/kpurdon/bazel_go_codegen_example/greeter",
+    visibility = ["//visibility:private"],
+    deps = [":hello"],
+)
+
+go_binary(
+    name = "greeter",
+    embed = [":greeter_lib"],
+    visibility = ["//visibility:public"],
+)

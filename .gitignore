@@ -1,0 +1,4 @@
+/bazel-testlogs
+/bazel-out
+/bazel-bin
+/bazel-bazel_go_codegen_example
